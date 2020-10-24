@@ -2,9 +2,9 @@
   "name": "basic_api_cch",
   "version": "1.0.0",
   "description": "coding challenge to participate in the Golang Bootcamp",
-  "main": "app.js",
+  "main": "start.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node start.js",
     "test": "jest"
   },
   "author": "Josué Sandoval",
