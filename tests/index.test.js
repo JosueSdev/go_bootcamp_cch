@@ -5,8 +5,8 @@ const app = require('../app')
 
 const request = supertest(app)
 
-describe('/ Intents', () => {
-    it('GET should say hello', () => {
+describe('GET /', () => {
+    it('intends to say hello', () => {
         const intent = indexHandlers.getIndex()
 
         expect(intent.json)
@@ -14,10 +14,8 @@ describe('/ Intents', () => {
                 message: 'Hello World!',
             })
     })
-})
 
-describe('/ Endpoints', () => {
-    it('GET should answer hello', async (done) => {
+    it('answers hello', async (done) => {
         const response = await request
             .get('/')
         
