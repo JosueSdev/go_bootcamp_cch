@@ -1,31 +1,21 @@
 const express = require('express')
 const axios = require('axios')
-const http = require('http')
 
 const handlers = require('./handlers')
-const { JSONIntent } = require('../../util/intent')
+const { HttpError } = require('../../util/error')
 
 const pokemon = express.Router()
 
-pokemon.get('/pokemon/:id/', async (req, res) => {
+pokemon.get('/pokemon/:id/', async (req, res, next) => {
     const { id } = req.params
     const requestIntent = handlers.consumePokemonEntry(id)
 
-    let jsonIntent;
     try {
         const response = await axios(requestIntent)
-        jsonIntent = handlers.returnPokemonEntry(response.data)
-    } catch (error) {
-        const { status } = error.response
-        jsonIntent = JSONIntent(status, {
-            title: http.STATUS_CODES[status],
-            status,
-        })
-        res.type('application/problem+json') 
+        res.json(handlers.returnPokemonEntry(response.data).json) 
+    } catch (err) {
+        next(new HttpError(err.message, err.response.status))
     }     
-
-    res.status(jsonIntent.status)
-        .json(jsonIntent.json)
 })
 
 module.exports = pokemon
