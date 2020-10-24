@@ -1,0 +1,1 @@
+# Golang Bootcamp: preliminary coding challenge
