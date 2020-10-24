@@ -42,4 +42,16 @@ describe('GET /pokemon/:id', () => {
 
         done()
     })
+
+    it('fails gracefully at invalid Pokémon requests', async (done) => {
+        const response = await request
+            .get('/pokemon/1510/')
+            .expect('Content-Type', /problem\+json/)
+        
+        expect(response.status).toStrictEqual(404)
+        expect(response.body).toHaveProperty('status', 404)
+        expect(response.body).toHaveProperty('title', 'Not Found')
+
+        done()
+    })
 })
