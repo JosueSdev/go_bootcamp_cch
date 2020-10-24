@@ -5,12 +5,12 @@ function JSONIntent(status, json) {
     }
 }
 
-function RequestIntent(method, url, headers, body) {
+function RequestIntent(method, url, headers, data) {
     return {
         method,
         url,
         ...headers && { headers },
-        ...body && { body },
+        ...data && { data },
     }
 }
 

@@ -1,7 +1,10 @@
-const intent = require("../util/intent")
+const supertest = require('supertest')
 
 const pokemonHandlers = require('../routes/pokemon/handlers')
 const examplePokemon = require('./resources/greninja.json')
+const app = require('../app')
+
+const request = supertest(app)
 
 describe('GET /pokemon/:id', () => {
     it('intends to consume a Pokémon', () => {
@@ -28,6 +31,15 @@ describe('GET /pokemon/:id', () => {
     })
 
     it('retireves a valid Pokémon request', async (done) => {
-        expect(true).toBe(false)
+        const response = await request
+            .get('/pokemon/151/')
+        
+        expect(response.status).toStrictEqual(200)
+
+        expect(response.body).toHaveProperty('name')
+        expect(response.body).toHaveProperty('nationalPokedexNumber', 151)
+        expect(response.body).toHaveProperty('description')
+
+        done()
     })
 })
