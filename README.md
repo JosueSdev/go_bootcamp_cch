@@ -33,4 +33,5 @@ response: says hello
 ### GET /pokemon/:id/
 
 id: expects a Pokemon's name or national dex number
+
 response: the Pokemon's pokedex entry
